@@ -13,3 +13,4 @@ go.work.sum
 *.log
 
 storage
+/config
