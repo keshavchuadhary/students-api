@@ -1,7 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"net/http"
+
+	"github.com/keshavchuadhary/students-api/internal/config"
+)
 
 func main() {
-	fmt.Println("welcome to students API")
+	// load config
+	cfg := config.MustLoad()
+	// database setup
+	//setup router
+	router := http.NewServeMux()
+	router.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("welcome to students api"))
+	})
+	//setup	server
+	server := http.Server{
+		Addr: cfg.Addr, Handler: router,
+	}
+	server.ListenAndServe()
 }
